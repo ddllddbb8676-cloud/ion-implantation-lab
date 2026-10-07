@@ -1,0 +1,15 @@
+{
+  "name": "ion-implantation-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Korean interactive ion implantation learning notebook",
+  "scripts": {
+    "start": "node qa/serve.cjs",
+    "check": "node --check site/app.js",
+    "test": "node qa/browser-check.cjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "playwright": "1.63.0"
+  }
+}

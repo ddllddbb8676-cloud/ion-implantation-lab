@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "purpose": "SHA-256 manifest of public static assets",
+  "files": [
+    {
+      "path": "site/.nojekyll",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "site/app.js",
+      "bytes": 27525,
+      "sha256": "d845926a98b3d78bb6f2204cdf520b8c3ca4531145af295e658195b046017f64"
+    },
+    {
+      "path": "site/favicon.svg",
+      "bytes": 282,
+      "sha256": "40a61b2e2ebfd080c9cadc8e6b018bb7cbe335f042ce62bf5f4f967cf78f0849"
+    },
+    {
+      "path": "site/index.html",
+      "bytes": 37177,
+      "sha256": "138a27c8f0afb333db976fef2122ed2b2e7f445a9505e32dfd495a574a6586a3"
+    },
+    {
+      "path": "site/styles.css",
+      "bytes": 30106,
+      "sha256": "7f2ec538fee41d15f4278892555f8fa2ad739bed28c22ab95b1fcc3ea9fab050"
+    }
+  ]
+}
