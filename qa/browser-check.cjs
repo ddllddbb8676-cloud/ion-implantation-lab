@@ -7,7 +7,9 @@ const requireQA = name => { try { return require(name); } catch { return require
 const { chromium } = requireQA('playwright');
 const { default: AxeBuilder } = requireQA('@axe-core/playwright');
 const siteRoot = path.resolve(__dirname, '../site');
-const output = path.resolve(__dirname, 'results');
+const targetUrl = process.env.IMP_TARGET_URL;
+if (targetUrl && new URL(targetUrl).origin !== 'https://ddllddbb8676-cloud.github.io') throw new Error('Unexpected public test target');
+const output = path.resolve(__dirname, targetUrl ? 'results/public' : 'results');
 fs.mkdirSync(output, { recursive: true });
 const checks = [], errors = [], failures = [], accessibility = [];
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml' };
@@ -24,7 +26,7 @@ const text = (page, id) => page.locator('#' + id).innerText();
 const noOverflow = page => page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth, bad: [...document.querySelectorAll('body *')].filter(el => { const r = el.getBoundingClientRect(); return r.width && (r.right > innerWidth + 2 || r.left < -2) && !el.closest('.beam-visual,.sidebar,.skip-link') && getComputedStyle(el).position !== 'absolute'; }).slice(0,12).map(el => ({ tag: el.tagName, id: el.id, class: el.className.baseVal || el.className })) }));
 (async () => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  const base = `http://127.0.0.1:${server.address().port}/ion-implantation-lab/`;
+  const base = targetUrl || `http://127.0.0.1:${server.address().port}/ion-implantation-lab/`;
   const executablePath = process.env.IMP_BROWSER_PATH || (process.platform === 'win32' ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : undefined);
   const browser = await chromium.launch({ executablePath, headless: true });
   const context = await browser.newContext({ viewport: { width: 1440, height: 1050 }, reducedMotion: 'reduce' });
@@ -108,7 +110,7 @@ const noOverflow = page => page.evaluate(() => ({ width: innerWidth, scroll: doc
   await page.setViewportSize({width:1440,height:1050}); await page.goto('file:///' + path.join(siteRoot,'index.html').replace(/\\/g,'/'));
   await check('Offline file opening: interactive calculator works without server',async()=>{assert.equal(await text(page,'dose-result'),'6.24 × 10¹²');await page.locator('#current').fill('20');assert.equal(await text(page,'dose-result'),'1.25 × 10¹³');});
   await browser.close(); server.close();
-  const report={checkedAt:new Date().toISOString(),browser:'Installed Chrome via Playwright',checks,accessibility,errors,limitations:['Automated checks do not replace screen reader or real mobile device validation.','Physical models are illustrative, not calibrated process simulation.','No public deployment attempted without an authorized repository target.']};
+  const report={checkedAt:new Date().toISOString(),browser:'Installed Chrome via Playwright',target:base,scope:targetUrl?'Public deployment; final file:// check uses local source':'Local predeployment validation',checks,accessibility,errors,limitations:['Automated checks do not replace screen reader or real mobile device validation.','Physical models are illustrative, not calibrated process simulation.']};
   fs.writeFileSync(path.join(output,'browser-report.json'),JSON.stringify(report,null,2));
   console.log(JSON.stringify({checks:checks.length,passed:checks.filter(c=>c.passed).length,failures,accessibility,errors},null,2));
   if(failures.length||accessibility.some(a=>a.violations.length)||errors.length)process.exitCode=1;
