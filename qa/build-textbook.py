@@ -1,6 +1,6 @@
 """Assemble a self-contained static textbook from the original manuscript."""
 from pathlib import Path
-import sys,json,re,html
+import sys,json,re,html,hashlib
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'content'))
 from textbook import CHAPTERS
@@ -43,4 +43,9 @@ source=re.sub(r'<p class="design-credit">.*?</p>', '''<div class="design-credit"
 out+=source+'''<footer><a class="brand" href="#intro"><span class="brand-mark" aria-hidden="true">i<span>+</span></span><strong>IMP LAB</strong></a><p>원리와 결과를 연결하는 이온주입 교재<br><span>공개자료 확인 · 2026.10.07</span></p><a href="#intro">학습 지도</a></footer></div></main></body></html>'''
 assert '{{' not in out
 (ROOT/'site/index.html').write_text(out,encoding='utf-8',newline='\n')
+manifest={'schema':1,'purpose':'SHA-256 manifest for verification against deployed static assets','files':[]}
+for asset in sorted((ROOT/'site').iterdir()):
+    if asset.is_file():
+        manifest['files'].append({'path':asset.relative_to(ROOT).as_posix(),'bytes':asset.stat().st_size,'sha256':hashlib.sha256(asset.read_bytes()).hexdigest()})
+(ROOT/'site-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8',newline='\n')
 print(f'Built {len(CHAPTERS)} chapters, {len(LABS)+6} labs, {sum(len(c["quiz"]) for c in CHAPTERS)+4} questions, {len(GLOSSARY)} glossary terms.')

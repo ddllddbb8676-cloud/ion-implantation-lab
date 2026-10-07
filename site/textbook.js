@@ -19,7 +19,7 @@
   function listen(ids,fn){ids.forEach(id=>$(id).addEventListener('input',fn));fn();}
   function reset(id,values,fn){$(id+'-reset').addEventListener('click',()=>{Object.entries(values).forEach(([k,v])=>$(k).value=v);fn();});}
 
-  function atom(){const z=$('atom-species').value==='B'?5:14, symbol=$('atom-species').value; $('atom-electrons').max=z+2;const n=readout('atom-electrons'), q=z-n;
+  function atom(){const z=$('atom-species').value==='B'?5:14, symbol=$('atom-species').value; $('atom-electrons').max=z+2;$('atom-electrons').nextElementSibling.lastElementChild.textContent=String(z+2);const n=readout('atom-electrons'), q=z-n;
     let s='<title>원소는 '+symbol+', 양성자 '+z+'개, 전자 '+n+'개</title>'+circle(190,145,105,'#f1f5ff')+circle(190,145,45,'#11243c')+text(190,141,symbol,'fill="#fff" text-anchor="middle" font-size="27"')+text(190,164,'양성자 '+z,'fill="#fff" text-anchor="middle"');
     for(let i=0;i<n;i++){const a=i*2*Math.PI/Math.max(1,n);s+=circle(190+84*Math.cos(a),145+84*Math.sin(a),11,'#244ed8')+text(190+84*Math.cos(a),150+84*Math.sin(a),'−','fill="#fff" text-anchor="middle"');}
     s+=text(360,86,'양성자 '+z+' × (+e)')+text(360,122,'전자 '+n+' × (−e)')+line(355,141,560,141)+text(360,179,'합계 '+(q>0?'+':'')+q+'e','font-size="24" font-weight="700"')+text(190,287,'배치는 개수 표식 · 궤도 아님','text-anchor="middle"');

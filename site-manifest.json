@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "purpose": "SHA-256 manifest of LOCAL v03 static assets; not deployed",
+  "purpose": "SHA-256 manifest for verification against deployed static assets",
   "files": [
     {
       "path": "site/.nojekyll",
@@ -24,8 +24,8 @@
     },
     {
       "path": "site/index.html",
-      "bytes": 154125,
-      "sha256": "0405aa8fb701d09154c1570f7497d9021604d27ace54ebfe92778daa5e8d769d"
+      "bytes": 155897,
+      "sha256": "ff664ec55c0c5144f2da821418ccee048dacc6dc69bb121f6d57783cab668f4a"
     },
     {
       "path": "site/styles.css",
@@ -39,8 +39,8 @@
     },
     {
       "path": "site/textbook.js",
-      "bytes": 14635,
-      "sha256": "4583bb14c609b09bcac82b22fac95e942d6e4f61cca019993a85797b672af2c6"
+      "bytes": 14715,
+      "sha256": "8afb6b9a7b40303876210537b36107637ca18886b923e532ed3a13fbed724e66"
     }
   ]
 }

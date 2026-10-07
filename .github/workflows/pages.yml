@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Check JavaScript syntax
-        run: node --check site/app.js
+        run: npm run check
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload public site only

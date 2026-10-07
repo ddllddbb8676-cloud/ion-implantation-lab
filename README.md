@@ -2,7 +2,7 @@
 
 반도체 입문자·취업 준비생·신입 엔지니어를 위한 한국어 인터랙티브 교재입니다. **12장, 14개 실험, 해설 문항 28개, 검색 용어 40개**로 원자부터 공정·소자·물리적 해석까지 연결합니다.
 
-현재 수정본은 **v03 로컬 검토본**입니다. `textbook-v03-local` 브랜치에서 작업했으며 push·재배포하지 않았습니다. 공개 사이트는 기존 커밋 `cd33a2cab6a69cc34fcf07bd8efc7b77daf0fda2`의 버전입니다.
+v03 교재 확장본입니다. [교재 열기](https://ddllddbb8676-cloud.github.io/ion-implantation-lab/) · [LV/HV 소자 실험](https://ddllddbb8676-cloud.github.io/ion-implantation-lab/#devices) · [배포 상태](https://github.com/ddllddbb8676-cloud/ion-implantation-lab/actions/workflows/pages.yml)
 
 ## 미리보기
 
@@ -53,12 +53,18 @@ npm test
 
 빌드는 Python 3 표준 라이브러리만 사용합니다. 생성된 `site/`는 실행 시 Python·Node가 필요 없습니다. 브라우저 검증은 개발 의존성 Playwright·axe-core와 Chrome을 사용합니다. 다른 PC에서는 먼저 `npm ci`를 실행하세요. Windows 표준 Chrome 외의 실행 파일은 `IMP_BROWSER_PATH`로 지정할 수 있습니다.
 
-검증 기록은 `QA-REPORT.md`, 기계 판독 결과와 화면 캡처는 `qa/results/v03/`에 있습니다. 자동 검사 결과는 완전한 WCAG 준수 인증을 의미하지 않습니다. 참고한 공개 기술자료와 교육적 단순화는 `CONTENT-NOTES.md`에 정리했습니다.
+검증 범위와 제한은 `QA-REPORT.md`에 있습니다. 최종 로컬 결과와 화면 캡처는 `qa/results/v03-release/local/`, 공개 사이트 검사 결과는 `qa/results/v03-release/public/`에 기록합니다. 이전 로컬 검토 기록은 `qa/results/v03/`에 보존합니다. 결과 파일은 Git 추적 대상이 아니며 인계용 ZIP에 포함합니다. 자동 검사와 터치 에뮬레이션은 실제 휴대전화·스크린리더 검사나 완전한 WCAG 준수 인증을 대신하지 않습니다. 공개 기술자료와 교육적 단순화는 `CONTENT-NOTES.md`에 정리했습니다.
 
-## 기존 배포 설정
+공개 사이트 검사는 `IMP_TARGET_URL` 환경 변수를 위 공개 URL로 설정하고 `npm test`를 실행합니다. 이 검사는 해당 URL만 허용하며, file:// 폴백 항목은 로컬 산출물에서 검사합니다.
+
+## 배포와 확인
 
 전용 저장소: <https://github.com/ddllddbb8676-cloud/ion-implantation-lab>
 
-기존 공개 URL: <https://ddllddbb8676-cloud.github.io/ion-implantation-lab/>
+공개 URL: <https://ddllddbb8676-cloud.github.io/ion-implantation-lab/>
 
-`.github/workflows/pages.yml`은 `main`에 사이트 변경이 push되면 `site/`를 GitHub Pages에 배포합니다. **이번 교재 개정에서는 이 동작을 실행하지 않았습니다.** 재배포는 별도 요청 후 진행해야 합니다. 과거 배포 근거는 `qa/results/deployment-report.json`에 보존되어 있으며 v03의 배포 증거가 아닙니다. DNS·도메인·인증·다른 프로젝트는 변경하지 않았습니다.
+사용자가 기존 저장소와 Pages의 재배포를 요청했습니다. `.github/workflows/pages.yml`은 `main`에 사이트 변경이 push되면 JavaScript 파일 세 개의 문법을 검사한 뒤 `site/`만 배포합니다. `npm run build`가 갱신하는 `site-manifest.json`은 정적 파일의 SHA-256을 기록합니다.
+
+배포 완료 후 `node qa/verify-deployment.cjs <전체 커밋 SHA> <Actions 실행 ID>`로 원격 커밋·실행 결과·Pages 배포 상태와 공개 파일의 해시를 확인합니다. 결과는 `qa/results/v03-release/deployment-report.json`에 저장합니다. DNS·도메인·인증 권한·다른 프로젝트의 변경은 포함하지 않습니다.
+
+로컬 검토 기준 커밋 `402f4719f8ca6cd121b5bde49510fda6d675f88f`와 이전 공개본 `cd33a2cab6a69cc34fcf07bd8efc7b77daf0fda2`는 이력에 남아 있습니다. 과거 `qa/results/deployment-report.json`은 이전 공개본의 기록이며 v03 배포 근거와 구분합니다.
