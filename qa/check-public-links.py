@@ -22,7 +22,7 @@ def verify(url):
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
     results = list(pool.map(verify, urls))
-(root / 'results').mkdir(exist_ok=True)
-(root / 'results' / 'public-links.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
+(root / 'results' / 'v03').mkdir(parents=True, exist_ok=True)
+(root / 'results' / 'v03' / 'public-links.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
 print(json.dumps(results, ensure_ascii=False, indent=2))
 raise SystemExit(0 if all(item.get('status') == 200 for item in results) else 1)

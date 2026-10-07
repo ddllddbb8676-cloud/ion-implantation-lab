@@ -1,12 +1,13 @@
 {
   "name": "ion-implantation-lab",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Korean interactive ion implantation learning notebook",
+  "description": "12-chapter Korean interactive ion implantation textbook",
   "scripts": {
     "start": "node qa/serve.cjs",
-    "check": "node --check site/app.js",
-    "test": "node qa/browser-check.cjs"
+    "build": "python qa/build-textbook.py",
+    "check": "node --check site/app.js && node --check site/textbook.js && node --check site/devices.js",
+    "test": "node qa/textbook-check.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

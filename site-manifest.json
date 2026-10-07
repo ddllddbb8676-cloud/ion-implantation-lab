@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "purpose": "SHA-256 manifest of public static assets",
+  "purpose": "SHA-256 manifest of LOCAL v03 static assets; not deployed",
   "files": [
     {
       "path": "site/.nojekyll",
@@ -9,8 +9,13 @@
     },
     {
       "path": "site/app.js",
-      "bytes": 27525,
-      "sha256": "d845926a98b3d78bb6f2204cdf520b8c3ca4531145af295e658195b046017f64"
+      "bytes": 26866,
+      "sha256": "31a74bc908b51376af441e2401abedb516a0fe9ab2df0f34f0ab61ea77be7689"
+    },
+    {
+      "path": "site/devices.js",
+      "bytes": 15526,
+      "sha256": "55d80def99ba050031dfac51dfdd8495f6331df1323b80b3b359725b5abf3383"
     },
     {
       "path": "site/favicon.svg",
@@ -19,13 +24,23 @@
     },
     {
       "path": "site/index.html",
-      "bytes": 37177,
-      "sha256": "138a27c8f0afb333db976fef2122ed2b2e7f445a9505e32dfd495a574a6586a3"
+      "bytes": 154125,
+      "sha256": "0405aa8fb701d09154c1570f7497d9021604d27ace54ebfe92778daa5e8d769d"
     },
     {
       "path": "site/styles.css",
       "bytes": 30106,
       "sha256": "7f2ec538fee41d15f4278892555f8fa2ad739bed28c22ab95b1fcc3ea9fab050"
+    },
+    {
+      "path": "site/textbook.css",
+      "bytes": 12780,
+      "sha256": "10046b219f1c9e879afacab6efa8e81f178980d3f23debdd7824c3fbb4ae0f69"
+    },
+    {
+      "path": "site/textbook.js",
+      "bytes": 14635,
+      "sha256": "4583bb14c609b09bcac82b22fac95e942d6e4f61cca019993a85797b672af2c6"
     }
   ]
 }

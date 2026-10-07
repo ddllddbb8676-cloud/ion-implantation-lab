@@ -6,3 +6,5 @@ qa/results/
 !.env.example
 Thumbs.db
 .DS_Store
+__pycache__/
+*.pyc

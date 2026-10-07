@@ -33,19 +33,7 @@
       target.focus({ preventScroll: true });
     }
   }));
-  const chapters = all('.chapter');
-  let scrollQueued = false;
-  const updateNavigation = () => {
-    let index = 0;
-    chapters.forEach((chapter, i) => { if (chapter.getBoundingClientRect().top <= 165) index = i; });
-    all('#chapter-nav a').forEach((a, i) => i === index ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'));
-    $('progress-label').textContent = `${String(index + 1).padStart(2, '0')} / 07`;
-    $('progress-fill').style.width = `${(index + 1) / 7 * 100}%`;
-    scrollQueued = false;
-  };
-  window.addEventListener('scroll', () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(updateNavigation); } }, { passive: true });
   window.addEventListener('resize', () => { if (window.innerWidth > 950) closeMenu(); });
-  updateNavigation();
 
   const stages = [
     ['먼저, 전하를 띠게 한다', '이온원에서 전자와 원자·분자의 충돌 등으로 이온을 만듭니다. 전기장으로 꺼낸 빔에는 여러 원소와 분자, 서로 다른 전하 상태가 섞일 수 있습니다.', '핵심: 전하가 있어야 전기장과 자기장으로 빔을 제어할 수 있습니다.', 175, 188],
@@ -222,6 +210,7 @@
   $('scan-reset').addEventListener('click', () => { stopScan(); $('scan-mode').value = 'raster'; $('scan-progress').value = 60; drawScan(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopScan(); });
   window.addEventListener('pagehide', stopScan);
+  document.addEventListener('readerchange', stopScan);
   drawScan();
 
   const annealStates = [
